@@ -2,12 +2,12 @@
 
 # Install dependencies first
 echo Installing Dependencies...
-sudo apt update
-sudo apt install ninja-build unzip
+apt update
+apt install ninja-build unzip
 wget https://chrome-infra-packages.appspot.com/dl/gn/gn/linux-amd64/+/latest
 unzip latest
 rm -rf .cipdpkg latest
-sudo mv gn /usr/bin
+mv gn /usr/bin
 
 
 # Run 32-bit build first
