@@ -1,0 +1,11 @@
+executable("krnl") {
+  sources = [
+    "src/kernel/kernel.c",
+    "src/drivers/tty.c",
+    "src/kernel/qemu.c",
+  ]
+  configs = ["//build/configs:kernel"]
+  ldflags = ["-T", "link.ld"]
+  include_dirs = ["./include", "//lib/include"]
+  deps = ["//lib/libk:libk", "//:archlib"]
+}

@@ -1,0 +1,9 @@
+static_library("libarch") {
+  sources = [
+    "src/arch.c",
+    "src/console.c",
+    "src/boot.asm",
+  ]
+  configs = ["//build/configs:lib"]
+  include_dirs = ["//lib/include", "//kernel/include", "./include"]
+}

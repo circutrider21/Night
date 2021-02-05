@@ -1,0 +1,6 @@
+declare_args() {
+  arch = "x86-32"
+  arch_bit = 1
+  arch_flags = ["-m32"]
+  arch_ldf = ["-melf_i386"]
+}

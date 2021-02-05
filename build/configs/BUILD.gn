@@ -1,0 +1,35 @@
+import("//build/decls.gni")
+
+config("kernel") {
+  cflags = ["-fno-PIC", "-fstrength-reduce", "-fomit-frame-pointer", "-fno-builtin", "-nostdlib"]
+  if(is_debug) {
+    cflags += ["-g", "-Og"]
+    cflags -= ["-fstrength-reduce"]
+  } else {
+    cflags += ["-O2", "-s", "-w"]
+  }
+  defines = ["KERNEL_VER=\"$kernel_version\"", "BUILD_ID=\"$build_id\""]
+  cflags += arch_flags
+  include_dirs = ["//arch/$arch/include"]
+  ldflags = arch_ldf
+}
+
+import("//build/arch.gni")
+
+config("lib") {
+  cflags = ["-fno-PIC", "-fstrength-reduce", "-fomit-frame-pointer", "-fno-builtin", "-nostdlib"]
+  if(is_debug) {
+    cflags += ["-g", "-Og"]
+  } else {
+    cflags += ["-O2", "-s", "-w"]
+  }
+  if(arch_bit == 2) {
+    defines = ["NIGHT_IS_X64"]
+    asmflags = ["-f", "elf64"]
+  } else {
+    asmflags = ["-f", "elf32"]
+  }
+  cflags += arch_flags
+  include_dirs = ["//arch/$arch/include"]
+  
+}

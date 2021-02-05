@@ -1,0 +1,31 @@
+; Copyright (c) 2021 Peeled Fruit Studios
+
+[BITS 32]
+global _start
+_start:
+    mov esp, __stack  
+    push ebx   
+    jmp stublet
+
+[section .multiboot]
+  ; Multiboot macros to make a few lines later more readable
+  MULTIBOOT_PAGE_ALIGN	equ 1<<0
+  MULTIBOOT_MEMORY_INFO	equ 1<<1
+  MULTIBOOT_HEADER_MAGIC	equ 0x1BADB002
+  MULTIBOOT_HEADER_FLAGS	equ MULTIBOOT_PAGE_ALIGN | MULTIBOOT_MEMORY_INFO
+  MULTIBOOT_CHECKSUM	equ -(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS)
+
+  ; This is the GRUB Multiboot header. A boot signature
+  dd MULTIBOOT_HEADER_MAGIC
+  dd MULTIBOOT_HEADER_FLAGS
+  dd MULTIBOOT_CHECKSUM
+
+
+stublet:
+    extern arch_main
+    call arch_main
+    jmp $
+
+[section .bss]
+	resb 8192
+__stack:

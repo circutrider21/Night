@@ -1,0 +1,9 @@
+declare_args() {
+  is_debug = false
+  # Enable only if you want to compile with clang
+  use_clang = false
+  # Don't Modify!
+  kernel_version = "0.1.3"
+  # Used to differentiate builds
+  build_id = "Test-rc0"
+}

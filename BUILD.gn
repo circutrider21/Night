@@ -1,0 +1,14 @@
+import("//build/arch.gni")
+
+copy("linkfile") {
+  sources = ["///arch/$arch/link.ld"]
+  outputs = [ "$root_build_dir/link.ld" ]
+}
+
+group("all") {
+  deps = [":linkfile", "//kernel:krnl"]
+}
+
+group("archlib") {
+  deps = ["//arch/$arch:libarch"]
+}
