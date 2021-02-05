@@ -8,7 +8,7 @@ wget https://chrome-infra-packages.appspot.com/dl/gn/gn/linux-amd64/+/latest
 unzip latest
 rm -rf .cipdpkg latest
 mv gn /usr/bin
-https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
+wget https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
 unzip *.zip
 mv ninja /usr/bin
 rm -rf *.zip
