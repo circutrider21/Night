@@ -3,7 +3,7 @@
 # Install dependencies first
 echo Installing Dependencies...
 apt update
-apt install ninja-build unzip
+apt install nasm
 wget https://chrome-infra-packages.appspot.com/dl/gn/gn/linux-amd64/+/latest
 unzip latest
 rm -rf .cipdpkg latest
