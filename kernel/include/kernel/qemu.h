@@ -4,7 +4,9 @@
 #include <libk/stdarg.h>
 
 #define DLOG(k, ...) __dlog(MODULE_NAME, k, #__VA_ARGS__);
+#define DINIT() __dinit();
 
+void __dinit();
 void __dlog(char* modname, char* fmt, ...);
 void qemu_putc(char c);
 void qemu_puts(char* str);
