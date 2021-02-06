@@ -8,7 +8,9 @@ int is_on = 0;
 
 // Checks if 0xe9 hack is supported
 void __dinit() {
-  is_on = 1; // Seeing if bug exists
+  if(arch_inb(0xe9) == 0xe9) {
+    is_on = 1;
+  }
 }
 
 void qemu_putc(char c) {
