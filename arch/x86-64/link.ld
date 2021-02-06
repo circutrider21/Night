@@ -1,31 +1,25 @@
-ENTRY(arch_main)
-
+mmio  = 0xfffffffff8000000;                    /* these are configurable for level 2 loaders */
+fb    = 0xfffffffffc000000;
+/* initstack = 1024; */
+PHDRS
+{
+  boot PT_LOAD;                                /* one single loadable segment */
+}
 SECTIONS
 {
-    /* We wanna be placed in the higher half, 2MiB above 0 in physical memory. */
-    . = 0x200000;
-
-    /* We place the .stivalehdr section containing the header in its own section, */
-    /* and we use the KEEP directive on it to make sure it doesn't get discarded. */
-    .stivale2hdr : {
-        KEEP(*(.stivale2hdr))
-    }
-
-    /* Then let's place all the other traditional executable sections afterwards. */
+    . = 0xffffffffffe00000;
+    bootboot    = .; . += 4096;
+    environment = .; . += 4096;
     .text : {
-        *(.text*)
-    }
-
-    .rodata : {
-        *(.rodata*)
-    }
-
-    .data : {
-        *(.data*)
-    }
-
-    .bss : {
+        KEEP(*(.text.boot)) *(.text .text.*)   /* code */
+        *(.rodata .rodata.*)                   /* data */
+        *(.data .data.*)
+    } :boot
+    .bss (NOLOAD) : {                          /* bss */
+        . = ALIGN(16);
+        *(.bss .bss.*)
         *(COMMON)
-        *(.bss*)
-    }
+    } :boot
+
+    /DISCARD/ : { *(.eh_frame) *(.comment) }
 }

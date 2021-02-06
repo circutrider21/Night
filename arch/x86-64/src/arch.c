@@ -1,27 +1,5 @@
 #include <arch/arch.h>
-#include <arch/multiboot.h>
-#include <arch/handover.h>
-#define MODULE_NAME "ARCH_INIT"
-#include <kernel/qemu.h>
-#include <kernel.h>
 
-handover_t trt;
-
-static void init_handover() {
-	trt.arch_name = "x86-64";
-	trt.arch_type = 2;
-	trt.framebuffer = (void*)0xB8000;
-	trt.height = 25;
-	trt.width = 80;
-	trt.pitch = 0;
-}
-
-void arch_main(multiboot* mb) {
-  DINIT();
-  DLOG("Just Booted!");
-	init_handover();
-	kmain(&trt);	
-}
 
 u8 arch_inb(u16 _port) {
 	u8 rv;
