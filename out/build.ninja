@@ -1,0 +1,34 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../gn --root=./.. -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+build build.ninja: gn
+  generator = 1
+  depfile = build.ninja.d
+
+subninja toolchain.ninja
+
+build archlib: phony obj/archlib.stamp
+build linkfile: phony obj/linkfile.stamp
+build libarch: phony obj/arch/x86-32/libarch.a
+build libk: phony obj/lib/libk/libk.a
+build $:all: phony obj/all.stamp
+build $:archlib: phony obj/archlib.stamp
+build $:linkfile: phony obj/linkfile.stamp
+build arch/x86-32$:libarch: phony obj/arch/x86-32/libarch.a
+build kernel$:krnl: phony krnl
+build lib/libk$:libk: phony obj/lib/libk/libk.a
+build lib/libk: phony obj/lib/libk/libk.a
+
+build all: phony $
+    obj/all.stamp $
+    obj/archlib.stamp $
+    obj/linkfile.stamp $
+    obj/arch/x86-32/libarch.a $
+    krnl $
+    obj/lib/libk/libk.a
+
+default all

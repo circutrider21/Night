@@ -19,8 +19,8 @@ static void init_handover() {
 }
 
 void _start() {
-  DINIT();
   DLOG("Just Booted!");
 	init_handover();
+  init_gdt();
   kmain(&trt);
 }

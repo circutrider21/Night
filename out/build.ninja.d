@@ -1,0 +1,1 @@
+build.ninja: ../.gn ../BUILD.gn ../arch/x86-32/BUILD.gn ../build/BUILDCONFIG.gn ../build/arch.gni ../build/configs/BUILD.gn ../build/decls.gni ../build/toolchains/BUILD.gn ../kernel/BUILD.gn ../lib/libk/BUILD.gn ./args.gn

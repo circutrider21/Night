@@ -1,0 +1,45 @@
+rule solink
+  command = ld -shared ${ldflags} -o ${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = ${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule alink
+  command = ar rcs ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule link
+  command = ld ${ldflags} -o ${target_output_name}${output_extension} @${target_output_name}${output_extension}.rsp ${solibs} ${libs}
+  description = LINK ${target_output_name}${output_extension}
+  rspfile = ${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in}
+rule cxx
+  command = g++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule cc
+  command = gcc -std=c89 -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = nasm -MD ${out}.d ${asmflags} -o ${out} ${in}
+  description = AS ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/all.stamp: stamp obj/linkfile.stamp krnl
+build obj/archlib.stamp: stamp obj/arch/x86-32/libarch.a
+build link.ld: copy ../arch/x86-32/link.ld
+
+build obj/linkfile.stamp: stamp link.ld
+subninja obj/arch/x86-32/libarch.ninja
+subninja obj/kernel/krnl.ninja
+subninja obj/lib/libk/libk.ninja
