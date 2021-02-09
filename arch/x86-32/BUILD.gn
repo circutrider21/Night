@@ -4,6 +4,9 @@ static_library("libarch") {
     "src/console.c",
     "src/boot.asm",
     "src/gdt.c",
+    "src/idt.c",
+    "src/isr.c",
+    "src/isrs.asm",
   ]
   configs = ["//build/configs:lib"]
   include_dirs = ["//lib/include", "//kernel/include", "./include"]

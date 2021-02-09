@@ -26,6 +26,8 @@ stublet:
     call arch_main
     jmp $
 
+section .text
+
 global gdt_flush
 
 flush_gdt:
@@ -40,6 +42,12 @@ flush_gdt:
   jmp 0x08:.flush
 .flush:
   ret
+
+global _idt_load
+extern idtp
+_idt_load:
+    lidt [idtp]
+    ret
 
 [section .bss]
 	resb 8192

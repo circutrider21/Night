@@ -17,8 +17,9 @@ static void init_handover() {
 }
 
 void arch_main(multiboot* mb) {
-  DINIT();
   DLOG("Just Booted!");
+  init_idt();
+  install_isr();
 	init_handover();
 	kmain(&trt);	
 }

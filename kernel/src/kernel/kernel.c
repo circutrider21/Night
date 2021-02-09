@@ -8,5 +8,6 @@ void kmain(handover_t* hd) {
   init_tty(hd->framebuffer, hd->height, hd->width);
   tty_set_callbacks(arch_get_cinit(), arch_get_cputch());
   tty_puts("Hello, World!");
+  __asm volatile ("int $7");
   arch_halt();
 }
