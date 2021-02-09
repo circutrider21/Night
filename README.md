@@ -33,7 +33,8 @@ As for building, See [BUILDING](docs/BUILDING.md)
 ### Contributing
 
 If you want to contribute to the kernel, You are absolutly welclome.
-Just be sure to follow the [Guidelines](docs/STANDARD.md)
+Just be sure to follow the [Guidelines](docs/STANDARD.md).
+
 If you want to help, just let me know in the discussions tab
 
 ### Issues
