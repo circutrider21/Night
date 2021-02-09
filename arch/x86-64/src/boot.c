@@ -18,7 +18,7 @@ static void init_handover() {
 	trt.pitch = 32;
 }
 
-void _start() {
+void arch_main() {
   DLOG("Just Booted!");
 	init_handover();
   init_gdt();
