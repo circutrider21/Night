@@ -54,9 +54,9 @@ Then copy the configuration file from build/preset/ to out/args.gn
 
 The configuration files have diffrent names for diffrent purposes, a brief explanation is below...
 
-1. x86_32.gn - Use this for the x86-32 arch
-2. x86_64.gn - Use this for the x86-64 arch
-3. x86_64-clang.gn - Same as above, but with clang
+1. *x86_32.gn* - Use this for the x86-32 arch
+2. *x86_64.gn* - Use this for the x86-64 arch
+3. *x86_64-clang.gn* - Same as above, but with clang
 
 Feel free to look and modify the configs, just don't mess with the arch flags
 
@@ -90,6 +90,6 @@ If you compiled for the x86-64 Arch, then run the following
 ````
 The image should be in out/boot.zip
 
-To boot these images/files, see (Here)[RUNNING.md]
+To boot these images/files, see [Here](RUNNING.md)
 
 **Copyright (c) 2021 The Developers of the Night Kernel**
