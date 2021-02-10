@@ -1,6 +1,4 @@
 #include <arch/bootboot.h>
-#define MODULE_NAME "ARCH_INIT"
-#include <kernel/qemu.h>
 #include <kernel.h>
 
 extern BOOTBOOT bootboot;               
@@ -19,7 +17,6 @@ static void init_handover() {
 }
 
 void arch_main() {
-  DLOG("Just Booted!");
 	init_handover();
   init_gdt();
   kmain(&trt);

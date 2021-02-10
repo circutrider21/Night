@@ -1,8 +1,6 @@
 #include <arch/arch.h>
 #include <arch/multiboot.h>
 #include <arch/handover.h>
-#define MODULE_NAME "ARCH_INIT"
-#include <kernel/qemu.h>
 #include <kernel.h>
 
 handover_t trt;
@@ -17,7 +15,6 @@ static void init_handover() {
 }
 
 void arch_main(multiboot* mb) {
-  DLOG("Just Booted!");
   init_idt();
   install_isr();
 	init_handover();
