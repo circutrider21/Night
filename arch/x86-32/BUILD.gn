@@ -7,6 +7,7 @@ static_library("libarch") {
     "src/idt.c",
     "src/isr.c",
     "src/isrs.asm",
+    "src/uart.c",
   ]
   configs = ["//build/configs:lib"]
   include_dirs = ["//lib/include", "//kernel/include", "./include"]

@@ -28,7 +28,7 @@ stublet:
 
 section .text
 
-global gdt_flush
+global flush_gdt
 
 flush_gdt:
   mov eax, [esp+4]

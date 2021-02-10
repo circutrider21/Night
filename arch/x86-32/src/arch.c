@@ -1,5 +1,6 @@
 #include <arch/arch.h>
 #include <arch/multiboot.h>
+#include <arch/uart.h>
 #include <arch/handover.h>
 #include <kernel.h>
 
@@ -15,8 +16,11 @@ static void init_handover() {
 }
 
 void arch_main(multiboot* mb) {
-  init_idt();
-  install_isr();
+    arch_init_uart(COM1);
+    arch_uart_putc(COM1, '!');
+    init_gdt();
+    init_idt();
+    install_isr();
 	init_handover();
 	kmain(&trt);	
 }

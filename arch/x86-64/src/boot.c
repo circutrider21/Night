@@ -1,4 +1,5 @@
 #include <arch/bootboot.h>
+#include <arch/uart.h>
 #include <kernel.h>
 
 extern BOOTBOOT bootboot;               
@@ -17,7 +18,9 @@ static void init_handover() {
 }
 
 void arch_main() {
-	init_handover();
-  init_gdt();
-  kmain(&trt);
+    arch_init_uart(COM1);
+    arch_uart_putc(COM1, '!');
+    init_handover();
+    init_gdt();
+    kmain(&trt);
 }
