@@ -4,7 +4,7 @@
 #define MODULE_NAME "BOOT"
 #include <kernel/logger.h>
 
-static u8 stack[4096];
+static u8 stack[8192];
 handover_t trt;
 
 static void init_handover(struct stivale_struct* sl) {
