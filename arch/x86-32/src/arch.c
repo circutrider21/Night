@@ -1,6 +1,8 @@
 #include <arch/arch.h>
 #include <arch/multiboot.h>
 #include <arch/uart.h>
+#define MODULE_NAME "BOOT"
+#include <kernel/logger.h>
 #include <arch/handover.h>
 #include <kernel.h>
 
@@ -16,12 +18,14 @@ static void init_handover() {
 }
 
 void arch_main(multiboot* mb) {
-    arch_init_uart(COM1);
-    arch_uart_putc(COM1, '!');
-    init_gdt();
-    init_idt();
-    install_isr();
+  init_logger();
+  init_gdt();
+  init_idt();
+  DLOG("GDT & IDT Installed!");
+  install_isr();
 	init_handover();
+  DLOG("ARCH INIT is now complete!");
+  DLOG("Booting Kernel...");
 	kmain(&trt);	
 }
 

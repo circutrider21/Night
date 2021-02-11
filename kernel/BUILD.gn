@@ -1,11 +1,14 @@
+import("//build/arch.gni")
+
 executable("krnl") {
   sources = [
     "src/kernel/kernel.c",
     "src/drivers/display/legcon.c",
     "src/drivers/display/vbe.c",
+    "src/kernel/logger.c",
   ]
   configs = ["//build/configs:kernel"]
   ldflags = ["-T", "link.ld"]
   include_dirs = ["./include", "//lib/include"]
-  deps = ["//lib/libk:libk", "//:archlib"]
+  deps = ["//lib/libk:libk", "//arch/$arch:libarch"]
 }
