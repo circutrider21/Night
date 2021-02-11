@@ -29,6 +29,10 @@ reload_gdt:
 
   ret
 
+global load_idt
+load_idt:
+  lidt [rdi]
+  ret
 
 section .bss
 	resb 8192
