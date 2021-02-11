@@ -15,7 +15,7 @@ void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel,
   idt[num].flags = flags;
 }
 
-void *memset(void *dest, char val, size_t count) {
+static void *memset(void *dest, char val, size_t count) {
   char *temp = (char *)dest;
   for (; count != 0; count--) *temp++ = val;
   return dest;

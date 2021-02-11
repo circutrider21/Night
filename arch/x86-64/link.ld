@@ -1,25 +1,33 @@
-mmio  = 0xfffffffff8000000;                    /* these are configurable for level 2 loaders */
-fb    = 0xfffffffffc000000;
-/* initstack = 1024; */
-PHDRS
-{
-  boot PT_LOAD;                                /* one single loadable segment */
-}
+/* Tell the linker that we want the symbol _start to be our entry point */
+ENTRY(arch_main)
+
 SECTIONS
 {
-    . = 0xffffffffffe00000;
-    bootboot    = .; . += 4096;
-    environment = .; . += 4096;
-    .text : {
-        KEEP(*(.text.boot)) *(.text .text.*)   /* code */
-        *(.rodata .rodata.*)                   /* data */
-        *(.data .data.*)
-    } :boot
-    .bss (NOLOAD) : {                          /* bss */
-        . = ALIGN(16);
-        *(.bss .bss.*)
-        *(COMMON)
-    } :boot
+    /* We wanna be placed in the higher half, 2MiB above 0 in physical memory. */
+    . = 0xffffffff80200000;
 
+    /* We place the .stivalehdr section containing the header in its own section, */
+    /* and we use the KEEP directive on it to make sure it doesn't get discarded. */
+    .stivalehdr : {
+        KEEP(*(.stivalehdr))
+    }
+
+    /* Then let's place all the other traditional executable sections afterwards. */
+    .text : {
+        *(.text*)
+    }
+
+    .rodata : {
+        *(.rodata*)
+    }
+
+    .data : {
+        *(.data*)
+    }
+
+    .bss : {
+        *(COMMON)
+        *(.bss*)
+    }
     /DISCARD/ : { *(.eh_frame) *(.comment) }
 }

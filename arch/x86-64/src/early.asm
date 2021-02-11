@@ -1,30 +1,33 @@
 [BITS 64]
 
 section .text
-global _start
-extern bootboot
-extern arch_main
-_start:
-  ; Bootstrap a stack
-  mov esp, __stack
-  mov ebp, esp
 
-  ; Check for (And Stop) AP Processors
-  mov eax, 1
-  cpuid
-  shr ebx, 24
-  cmp [bootboot + 0xC], bx
-  jne .ap
+global reload_gdt
+extern gdt
+reload_gdt:
+  lgdt [gdt]
+  push rbp
+  mov rbp, rsp
 
-  ; We are the BSP, proceed to arch_main
-  call arch_main
-  jmp .ap ; Never reached
+  push qword 0x10
+  push rbp
+  pushf
+  push qword 0x8
+  push .trampoline
+  iretq
 
-.ap:
-  ; APs can just halt forever
-  cli
-  hlt
-  jmp .ap
+.trampoline:
+  pop rbp
+
+  mov ax, 0x10
+
+  mov ds, ax
+  mov es, ax
+  mov fs, ax
+  mov gs, ax
+  mov ss, ax
+
+  ret
 
 
 section .bss

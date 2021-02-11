@@ -14,6 +14,8 @@ typedef struct {
 
 	void* ramdisk;
 	size_t len;
+
+	void* raw_ptr; // A Raw Pointer to the bootloader-specific data
 } handover_t;
 
 #endif // ARCH_HANDOVER_H

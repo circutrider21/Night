@@ -1,7 +1,8 @@
 executable("krnl") {
   sources = [
     "src/kernel/kernel.c",
-    "src/drivers/tty.c",
+    "src/drivers/display/legcon.c",
+    "src/drivers/display/vbe.c",
   ]
   configs = ["//build/configs:kernel"]
   ldflags = ["-T", "link.ld"]

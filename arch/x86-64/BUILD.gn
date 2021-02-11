@@ -1,7 +1,6 @@
 static_library("libarch") {
   sources = [
     "src/arch.c",
-    "src/console.c",
     "src/boot.c",
     "src/gdt.c",
     "src/early.asm",

@@ -3,24 +3,6 @@
 gdt_entry entries[5];
 gdt_table gdt;
 
-static void reload_gdt(void) {
-  __asm volatile (
-    "lgdt %0\n\t"
-    "push %1\n\t"
-    "push OFFSET\n\t"
-    "lretq\n\t"
-    "1:\n\t"
-    "mov ds, %2\n\t"
-    "mov es, %2\n\t"
-    "mov fs, %2\n\t"
-    "mov gs, %2\n\t"
-    "mov ss, %2\n\t"
-    :
-    : "m"(gdt), "rmi"((u64)0x08), "rm"((u64)0x10)
-    : "memory"
-    );
-}
-
 void init_gdt() {
 
   // Null Segment

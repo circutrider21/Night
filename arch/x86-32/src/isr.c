@@ -1,5 +1,5 @@
 #include <arch/idt.h>
-#include <drivers/tty.h>
+#include <drivers/display/legcon.h>
 
 void install_isr() {
   idt_set_gate(0, (unsigned)_isr0, 0x08, 0x8E);
@@ -79,9 +79,9 @@ unsigned char* exception_messages[] = {
 
 void fault_handler(struct regs* r) {
   if (r->int_no < 32) {
-    tty_puts("\n");
-    tty_puts(exception_messages[r->int_no]);
-    tty_puts(" Exception. System Halted!\n");
+    lcon_puts("\n");
+    lcon_puts(exception_messages[r->int_no]);
+    lcon_puts(" Exception. System Halted!\n");
     __asm volatile ("cli");
     for (;;);
   }
