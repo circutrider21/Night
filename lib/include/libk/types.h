@@ -2,8 +2,8 @@
 #define LIBK_TYPES_H
 
 typedef unsigned long long size_t;
-typedef unsigned long long u64;
-typedef unsigned long u32;
+typedef unsigned long u64;
+typedef unsigned int u32;
 typedef unsigned short u16;
 typedef unsigned char u8;
 #define NULL ((void*)0)
