@@ -4,7 +4,7 @@
 
 static u16 PORT = COM1;
 
-static void logger_puts(char* str) {
+void logger_puts(char* str) {
   for(int k = 0; k < strlen(str); k++) {
     arch_uart_putc(PORT, str[k]);
   }

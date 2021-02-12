@@ -30,6 +30,11 @@ void init_idt() {
   for(int g = 0; g < 48; g++) {
     add_handler(g, __interrupt_vector[g], INTGATE);
   }
+  if(sizeof(idt_entry) == 16) {
+    logger_puts("IDT Check Passed!\n");
+  } else {
+    logger_puts("IDT Check Failed!\n");
+  }
   load_idt((u64)&_idt_descriptor);
   DLOG("Interrupts Initialized!\n");
 }
@@ -77,5 +82,7 @@ void handle_interrupt(struct cpu_state* ctx) {
     vbe_putc('\n');
     vbe_puts(_exception_messages[ctx->intno]);
     vbe_puts(" Exception. System Halted!");
+    arch_halt();
+    for(;;);
   }
 }
