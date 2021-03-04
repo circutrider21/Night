@@ -9,7 +9,7 @@ Some things that I currrently have done...
 - [x] Basic layout and build system
 - [x] Print "Hello, World!" to the screen
 - [x] Setup both x32 and x64 gdt
-- [ ] 32 and 64-bit IDT
+- [x] 32 and 64-bit IDT
 - [ ] APIC and PIC Support
 - [ ] Memory manager
 - [ ] And many other things
