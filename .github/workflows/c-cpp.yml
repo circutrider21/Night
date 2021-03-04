@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install-deps
-      run: sudo apt install parted && git checkout CI-work
+      run: sudo apt install parted
     - name: build
       run: sudo sh ./scripts/ci.sh
     - name: gen-x86_32-image
