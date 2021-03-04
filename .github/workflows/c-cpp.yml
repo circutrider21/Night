@@ -1,0 +1,40 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ stable ]
+  pull_request:
+    branches: [ stable ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: install-deps
+      run: sudo apt get install grub-mkrescue parted
+    - name: build
+      run: sudo sh ./scripts/ci.sh
+    - name: gen-x86_32-image
+      run: |
+        mkdir -p iso32/boot/grub
+        mv build32/krnl iso32/boot/krnl
+        mv extra/grub.cfg iso32/boot/grub/grub.cfg
+        grub-mkrescue -o Night-x86_32-CI.iso
+    - name: gen-x86_64-image
+      run: |
+        git clone --depth 1 https://github.com/limine-bootloader/limine.git
+        cd limine && make && cd ..
+        git clone --depth 1 https://github.com/echfs/echfs.git
+        cd echfs && make utils && sudo make install && cd ..
+        dd if=/dev/zero bs=1M count=0 seek=64 of=Night-x86_64-CI.hdd
+	      parted -s Night-x86_64-CI.hdd mklabel gpt
+	      parted -s Night-x86_64-CI.hdd mkpart primary 2048s 100%
+	      echfs-utils -g -p0 Night-x86_64-CI.hdd quick-format 512
+  	    echfs-utils -g -p0 Night-x86_64-CI.hdd import build64/krnl krnl
+	      echfs-utils -g -p0 Night-x86_64-CI.hdd import extra/limine.cfg limine.cfg
+	      ./limine/limine-install Night-x86_64-CI.hdd
+    - name: make distcheck
+      run: make distcheck
