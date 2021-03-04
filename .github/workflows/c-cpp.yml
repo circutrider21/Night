@@ -20,6 +20,6 @@ jobs:
     - name: gen-x86_32-image
       run: |
         mkdir -p iso32/boot/grub
-        mv build32/krnl iso32/boot/krnl
-        mv extra/grub.cfg iso32/boot/grub/grub.cfg
+        cp build32/krnl iso32/boot/krnl
+        cp extra/grub.cfg iso32/boot/grub/grub.cfg
         grub-mkrescue -o Night-x86_32-CI.iso
