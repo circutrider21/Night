@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ stable ]
+    branches: [ stable, CI-work ]
   pull_request:
     branches: [ stable ]
 
@@ -14,12 +14,29 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install-deps
-      run: sudo apt get install grub-mkrescue parted
+      run: sudo apt install parted mtools
     - name: build
       run: sudo sh ./scripts/ci.sh
     - name: gen-x86_32-image
       run: |
         mkdir -p iso32/boot/grub
-        mv build32/krnl iso32/boot/krnl
-        mv extra/grub.cfg iso32/boot/grub/grub.cfg
-        grub-mkrescue -o Night-x86_32-CI.iso
+        cp build32/krnl iso32/boot/krnl
+        cp extra/grub.cfg iso32/boot/grub/grub.cfg
+        grub-mkrescue -o Night-x86_32-CI.iso iso32
+    - name: Upload a 32-bit ISO
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        # Artifact name
+        name: Night-x86_32-CI.iso
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ./Night-x86_32-CI.iso
+    - name: gen-x86_64-image
+      run: sudo sh ./scripts/create-image.sh
+    - name: Upload 64-bit Image
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        # Artifact name
+        name: Night-x86_64-CI.vhd
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ./Night-x86_64.vhd
+
