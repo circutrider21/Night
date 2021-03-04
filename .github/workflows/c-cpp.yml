@@ -22,12 +22,21 @@ jobs:
         mkdir -p iso32/boot/grub
         cp build32/krnl iso32/boot/krnl
         cp extra/grub.cfg iso32/boot/grub/grub.cfg
-        grub-mkrescue -o Night-x86_32-CI.iso
-    - name: Upload a Build Artifact
+        grub-mkrescue -o Night-x86_32-CI.iso iso32
+    - name: Upload a 32-bit ISO
       uses: actions/upload-artifact@v2.1.4
       with:
         # Artifact name
         name: Night-x86_32-CI.iso
         # A file, directory or wildcard pattern that describes what to upload
         path: ./Night-x86_32-CI.iso
+    - name: gen-x86_64-image
+      run: ./scripts/create-image.sh
+    - name: Upload 64-bit Image
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        # Artifact name
+        name: Night-x86_64-CI.vhd
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ./Night-x86_64.vhd
 
