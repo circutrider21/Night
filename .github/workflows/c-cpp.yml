@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ stable ]
+    branches: [ stable, CI-work ]
   pull_request:
     branches: [ stable ]
 
@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install-deps
-      run: sudo apt get install grub-mkrescue parted
+      run: sudo apt install grub-mkrescue parted && git checkout CI-work
     - name: build
       run: sudo sh ./scripts/ci.sh
     - name: gen-x86_32-image
