@@ -25,7 +25,8 @@ parted -s Night-x86_64.vhd mkpart primary 1 100%
 parted -s Night-x86_64.vhd set 1 boot on # Workaround for buggy BIOSes
 
 echfs-utils -m -p0 Night-x86_64.vhd quick-format 32768
-echfs-utils -m -p0 Night-x86_64.vhd import extra/limine.cfg limine.cfg
+file buildx64/krnl
 echfs-utils -m -p0 Night-x86_64.vhd import buildx64/krnl krnl
+echfs-utils -m -p0 Night-x86_64.vhd import extra/limine.cfg limine.cfg
 
 ./limine/limine-install Night-x86_64.vhd
