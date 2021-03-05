@@ -15,6 +15,6 @@ void kmain(handover_t* hd) {
     DLOG("System Supports CGA Mode!");
     lcon_puts("Hello, World!");
   }
-  __asm volatile ("int $7");
+  __asm volatile ("int $10");
   arch_halt();
 }
