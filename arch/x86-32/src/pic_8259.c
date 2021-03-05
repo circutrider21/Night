@@ -47,4 +47,5 @@ void init_pic() {
 
   // Complete!
   DLOG("PIC Ready!");
+  __asm volatile ("sti");
 }

@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ stable, CI-work ]
+    branches: [ stable, pic_8259 ]
   pull_request:
     branches: [ stable ]
 
