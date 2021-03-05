@@ -66,4 +66,8 @@ extern void _isr31();
 
 void install_isr();
 
+// IRQ Stuff
+
+void add_irq_handler(u8 slot, void* handler);
+
 #endif // ARCH_X32_IDT_H

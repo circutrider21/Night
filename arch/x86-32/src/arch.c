@@ -5,6 +5,7 @@
 #include <kernel/logger.h>
 #include <arch/handover.h>
 #include <kernel.h>
+#include <arch/pic_8259.h>
 
 handover_t trt;
 
@@ -23,6 +24,7 @@ void arch_main(multiboot* mb) {
   init_idt();
   DLOG("GDT & IDT Installed!");
   install_isr();
+  init_pic();
 	init_handover();
   DLOG("ARCH INIT is now complete!");
   DLOG("Booting Kernel...");

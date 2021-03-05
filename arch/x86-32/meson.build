@@ -3,7 +3,8 @@ libarch_src = files(
   'src/gdt.c',
   'src/idt.c',
   'src/isr.c',
-  'src/uart.c'
+  'src/uart.c',
+  'src/pic_8259.c'
 )
 
 libarch_inc = include_directories('../../kernel/include', '../../lib/include', './include')
