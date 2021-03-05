@@ -42,8 +42,8 @@ void init_pic() {
   IO_WAIT();
 
   // Restore Masks
-  arch_outb(PIC0_DATA, 0);
-  arch_outb(PIC1_DATA, 0);
+  arch_outb(PIC0_DATA, p.masks[0]);
+  arch_outb(PIC1_DATA, p.masks[1]);
 
   // Complete!
   DLOG("PIC Ready!");
