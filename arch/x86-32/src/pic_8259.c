@@ -4,7 +4,7 @@
 #include <arch/idt.h>
 
 struct __pic {
-  u8 masks[2];
+  volatile u8 masks[2];
 };
 
 static void* handlers[16] = {
@@ -42,7 +42,7 @@ void handle_irq(struct regs *r) {
   /* Find out if we have a custom handler to run for this
    *  IRQ, and then finally, run it */
   handler = handlers[r->int_no - 32];
-  if (handler) { handler(r); } else { DLOG("INTR %d\n", r->int_no); }
+  if (handler) { handler(r); } else { DLOG("INTR %u\n", r->int_no); }
 
   /* If the IDT entry that was invoked was greater than 40
    *  (meaning IRQ8 - 15), then we need to send an EOI to
@@ -60,8 +60,8 @@ void init_pic() {
   p.masks[0] = arch_inb(PIC0_DATA);
   p.masks[1] = arch_inb(PIC1_DATA);
 
-  DLOG("PIC0 Mask = %c", p.masks[0]);
-  DLOG("PIC1 Mask = %c", p.masks[1]);
+  DLOG("PIC0 Mask = %u", p.masks[0]);
+  DLOG("PIC1 Mask = %u", p.masks[1]);
 
   // Start init process
   arch_outb(PIC0_CMD, INIT_CMD);
