@@ -42,7 +42,7 @@ void handle_irq(struct regs *r) {
   /* Find out if we have a custom handler to run for this
    *  IRQ, and then finally, run it */
   handler = handlers[r->int_no - 32];
-  if (handler) { handler(r); } else { DLOG("INTR %u\n", r->int_no); }
+  if (handler) { handler(r); } else { arch_outb(0xE9, '!'); // Interrupt Unknown }
 
   /* If the IDT entry that was invoked was greater than 40
    *  (meaning IRQ8 - 15), then we need to send an EOI to
