@@ -60,8 +60,8 @@ void init_pic() {
   p.masks[0] = arch_inb(PIC0_DATA);
   p.masks[1] = arch_inb(PIC1_DATA);
 
-  DLOG("PIC0 Mask = %x", p.masks[0]);
-  DLOG("PIC1 Mask = %x", p.masks[1]);
+  DLOG("PIC0 Mask = %c", p.masks[0]);
+  DLOG("PIC1 Mask = %c", p.masks[1]);
 
   // Start init process
   arch_outb(PIC0_CMD, INIT_CMD);
@@ -88,12 +88,12 @@ void init_pic() {
   IO_WAIT();
 
   // Restore Masks
-  arch_outb(PIC0_DATA, p.masks[0]);
-  arch_outb(PIC1_DATA, p.masks[1]);
+  arch_outb(PIC0_DATA, 0);
+  arch_outb(PIC1_DATA, 0);
 
   // Complete!
+  irq_install();
+
   DLOG("PIC Ready!");
   __asm volatile ("sti");
-
-  irq_install();
 }
