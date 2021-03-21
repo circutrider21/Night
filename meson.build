@@ -4,7 +4,7 @@ project('Night', 'c', version: '0.3.1')
 # TODO: Add Configuration Support
 # conf_data = configuration_data()
 # conf_data.set('version', meson.project_version())
-# configure_file(input: 'include/Sigma/config.h.in', output: 'config.h', configuration: conf_data)
+# configure_file(output: 'config.h', configuration: conf_data)
 
 cflags = ['-fno-PIC', '-fstrength-reduce', '-fomit-frame-pointer', 
           '-fno-builtin', '-nostdlib', '-ffreestanding', '-std=c99']
