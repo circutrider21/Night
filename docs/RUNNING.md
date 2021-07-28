@@ -18,7 +18,7 @@ To install the iso or image, proceed to the next subsection
 
 If you have an ISO, then the steps are pretty straight foreward.
 
-You can simply burn the ISO to a cd (or a flash drive using [Rufus](rufus.ie))
+You can simply burn the ISO to a cd (or a flash drive using [Rufus](https://rufus.ie))
 
 #### If you have a .zip image
 
